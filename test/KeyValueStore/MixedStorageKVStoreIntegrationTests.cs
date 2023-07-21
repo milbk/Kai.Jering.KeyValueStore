@@ -65,7 +65,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (ValueTask<(Status, DummyClass?)> task in readTasks)
             {
                 (Status status, DummyClass? result) = await task.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
                 Assert.Equal(dummyClassInstance, result);
             }
 
@@ -82,7 +82,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (ValueTask<(Status, DummyClass?)> task in readTasks)
             {
                 (Status status, DummyClass? result) = await task.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
                 Assert.Equal(dummyClassInstance, result);
             }
 
@@ -92,7 +92,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (ValueTask<Status> task in deleteTasks)
             {
                 Status status = await task.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
             }
 
             // Verify deletes
@@ -101,7 +101,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (ValueTask<(Status, DummyClass?)> task in readTasks)
             {
                 (Status status, DummyClass? result) = await task.ConfigureAwait(false);
-                Assert.Equal(Status.NOTFOUND, status);
+                Assert.True(status.NotFound);
                 Assert.Null(result);
             }
         }
@@ -137,7 +137,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (KeyValuePair<int, ValueTask<(Status, string?)>> keyValuePair in readTasks)
             {
                 (Status status, string? result) = await keyValuePair.Value.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
                 Assert.Equal(keyValuePair.Key.ToString(), result);
             }
         }
@@ -186,7 +186,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (KeyValuePair<int, ValueTask<(Status, DummyVariableLengthStruct)>> keyValuePair in readTasks)
             {
                 (Status status, DummyVariableLengthStruct result) = await keyValuePair.Value.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
                 DummyVariableLengthStruct localDummyStructInstance = dummyStructInstance;
                 localDummyStructInstance.DummyInt = keyValuePair.Key;
                 Assert.Equal(localDummyStructInstance, result);
@@ -237,7 +237,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (KeyValuePair<int, ValueTask<(Status, DummyFixedLengthStruct)>> keyValuePair in readTasks)
             {
                 (Status status, DummyFixedLengthStruct result) = await keyValuePair.Value.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
                 DummyFixedLengthStruct localDummyStructInstance = dummyStructInstance;
                 localDummyStructInstance.DummyInt = keyValuePair.Key;
                 Assert.Equal(localDummyStructInstance, result);
@@ -272,7 +272,7 @@ namespace Jering.KeyValueStore.Tests
             foreach (ValueTask<(Status, int)> task in readTasks)
             {
                 (Status status, int result) = await task.ConfigureAwait(false);
-                Assert.Equal(Status.OK, status);
+                Assert.True(status.IsCompletedSuccessfully);
                 Assert.Equal(dummyValue, result);
             }
         }
@@ -537,7 +537,7 @@ namespace Jering.KeyValueStore.Tests
             {
                 FasterKV<SpanByte, SpanByte>.UpsertAsyncResult<SpanByte, SpanByteAndMemory, Empty> result = await task.ConfigureAwait(false);
 
-                while (result.Status == Status.PENDING)
+                while (result.Status.IsPending)
                 {
                     result = await result.CompleteAsync().ConfigureAwait(false);
                 }

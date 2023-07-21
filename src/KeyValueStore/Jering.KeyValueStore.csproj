@@ -2,13 +2,13 @@
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.1</TargetFrameworks>
-        <PackageId>Jering.KeyValueStore</PackageId>
-        <Authors>JeremyTCD</Authors>
+        <PackageId>Kai.Jering.KeyValueStore</PackageId>
+        <Authors>JeremyTCD, Mpkgs</Authors>
         <Title>Embeddable Mixed-Storage Key-Value Store for C#</Title>
         <Description>Jering.KeyValueStore enables you to store key-value data across memory and disk. This library is a Microsoft.Faster wrapper.</Description>
         <Copyright>© 2021 Jering. All rights reserved.</Copyright>
-        <PackageProjectUrl>https://github.com/JeringTech/KeyValueStore</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/JeringTech/KeyValueStore</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/milbk/KeyValueStore.Kai</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/milbk/KeyValueStore.Kai</RepositoryUrl>
         <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.md</PackageLicenseUrl>
         <PackageReleaseNotes>$(RepositoryUrl)/blob/master/Changelog.md</PackageReleaseNotes>
         <PackageTags>key-value store concurrent memory disk cache faster</PackageTags>
@@ -26,18 +26,19 @@
         <SignAssembly>true</SignAssembly>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+        <UserSecretsId>fbd3723a-ed47-4eca-8361-5823a5d91c5e</UserSecretsId>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Version>1.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MessagePack" Version="2.2.85" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-        <PackageReference Include="Microsoft.FASTER.Core" Version="1.9.3" />
+        <PackageReference Include="MessagePack" Version="2.5.124" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+        <PackageReference Include="Microsoft.FASTER.Core" Version="2.5.18" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\generators\Jering.KeyValueStore.Generators\Jering.KeyValueStore.Generators.csproj"
-                        OutputItemType="Analyzer"
-                        ReferenceOutputAssembly="false"/>
+        <ProjectReference Include="..\..\generators\Jering.KeyValueStore.Generators\Jering.KeyValueStore.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
     <ItemGroup>

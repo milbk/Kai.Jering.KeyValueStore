@@ -140,7 +140,7 @@ namespace Jering.KeyValueStore
             _arrayBufferWriterPool.Enqueue(arrayBufferWriter);
 
             // Wait for completion
-            while (result.Status == Status.PENDING)
+            while (result.Status.IsPending)
             {
                 result = await result.CompleteAsync().ConfigureAwait(false);
             }
@@ -183,7 +183,7 @@ namespace Jering.KeyValueStore
             _arrayBufferWriterPool.Enqueue(arrayBufferWriter);
 
             // Wait for completion
-            while (result.Status == Status.PENDING)
+            while (result.Status.IsPending)
             {
                 result = await result.CompleteAsync().ConfigureAwait(false);
             }
@@ -236,7 +236,7 @@ namespace Jering.KeyValueStore
             // Deserialize
             using IMemoryOwner<byte> memoryOwner = spanByteAndMemory.Memory;
 
-            return (status, status != Status.OK ? default : MessagePackSerializer.Deserialize<TValue>(memoryOwner.Memory, _messagePackSerializerOptions));
+            return (status, !status.IsCompletedSuccessfully ? default : MessagePackSerializer.Deserialize<TValue>(memoryOwner.Memory, _messagePackSerializerOptions));
         }
 
         private async Task LogCompactionLoop()
@@ -264,7 +264,7 @@ namespace Jering.KeyValueStore
                     // Compact
                     long compactUntilAddress = (long)(_logAccessor.BeginAddress + 0.2 * (_logAccessor.SafeReadOnlyAddress - _logAccessor.BeginAddress));
                     ClientSession<SpanByte, SpanByte, SpanByte, SpanByteAndMemory, Empty, SpanByteFunctions<Empty>> session = GetPooledSession();
-                    session.Compact(compactUntilAddress, true);
+                    session.Compact(compactUntilAddress);//
                     _sessionPool.Enqueue(session);
                     _numConsecutiveLogCompactions++;
 
