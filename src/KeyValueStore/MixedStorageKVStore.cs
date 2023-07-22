@@ -236,7 +236,7 @@ namespace Jering.KeyValueStore
             // Deserialize
             using IMemoryOwner<byte> memoryOwner = spanByteAndMemory.Memory;
 
-            return (status, !status.IsCompletedSuccessfully ? default : MessagePackSerializer.Deserialize<TValue>(memoryOwner.Memory, _messagePackSerializerOptions));
+            return (status, !status.Found ? default : MessagePackSerializer.Deserialize<TValue>(memoryOwner.Memory, _messagePackSerializerOptions));
         }
 
         private async Task LogCompactionLoop()
