@@ -32,9 +32,9 @@
       },
       "Microsoft.FASTER.Core": {
         "type": "Direct",
-        "requested": "[2.6.2, )",
-        "resolved": "2.6.2",
-        "contentHash": "/mrTw9uCYFaKcQe7uRHmOR5Pha88QdmT9XIZKf1SOZwcpFh4hPh+9fwpla5TzgVzRwfSLV35JXeyrQTlZSr94w==",
+        "requested": "[2.6.3, )",
+        "resolved": "2.6.3",
+        "contentHash": "FW5j69/RHwEsHFU5UrPhTmj4N/SxS/nk8LMCPvSjFuQ5aX+gR79/79dQsRximMzKxO5xYMnv2utVv8yuGY3jCw==",
         "dependencies": {
           "Microsoft.Extensions.Logging": "3.1.26",
           "System.Interactive.Async": "6.0.1",
