@@ -28,7 +28,7 @@
         <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
         <UserSecretsId>fbd3723a-ed47-4eca-8361-5823a5d91c5e</UserSecretsId>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <Version>1.1.5</Version>
+        <Version>1.1.9</Version>
     </PropertyGroup>
 
     <ItemGroup>
